@@ -12,7 +12,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="bradcumb-title text-center">
-                        <h2>Stay</h2>
+                        <h2>Culture</h2>
                     </div>
                 </div>
             </div>

@@ -13,16 +13,21 @@ public class SeoulServiceImple implements SeoulService {
 	private final SeoulMapper sMapper;
 
 	@Override
-	public List<SeoulVO> seoulLocationListData(int start) {
+	public List<SeoulVO> seoulListData(Map map) {
 		// TODO Auto-generated method stub
-		return sMapper.seoulLocationListData(start);
+		return sMapper.seoulListData(map);
 	}
 
 	@Override
-	public int seoulLocationTotalPage() {
+	public int seoulTotalPage(int contenttype) {
 		// TODO Auto-generated method stub
-		return sMapper.seoulLocationTotalPage();
+		return sMapper.seoulTotalPage(contenttype);
 	}
-	
-	
+
+	@Override
+	public SeoulVO seoulAttractionDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		sMapper.seoulHitIncrement(contentid);
+		return sMapper.seoulAttractionDetailData(contentid);
+	}
 }

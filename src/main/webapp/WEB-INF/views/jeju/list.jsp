@@ -6,6 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.post-headline{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+</style>
 </head>
 <body>
     <div class="breadcumb-area" style="background-image: url(/img/bg-img/breadcumb.jpg);">
@@ -13,7 +20,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="bradcumb-title text-center">
-                        <h2>서울 관광지</h2>
+                        <h2>${name }</h2>
                     </div>
                 </div>
             </div>
@@ -25,8 +32,9 @@
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">서울 관광지</li>
+                            <li class="breadcrumb-item"><a href="/main"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">제주여행</li>
+                            <li class="breadcrumb-item active" aria-current="page">${name1 }</li>
                         </ol>
                     </nav>
                 </div>
@@ -43,10 +51,10 @@
                 <!-- Single Post -->
                 <c:forEach var="vo" items="${list }">
                 	<div class="col-12 col-md-6 col-lg-4">
-	                    <div class="single-post wow fadeInUp" data-wow-delay="0.5s">
+	                    <div class="single-post wow fadeInUp" data-wow-delay="0.1s">
 	                        <!-- Post Thumb -->
 	                        <div class="post-thumb">
-	                            <img src="${vo.image1 }" alt="">
+	                            <a href="/jeju/detail_before?contentid=${vo.contentid }"><img src="${vo.image1 }" style="width:350px;height: 240px;"></a>
 	                        </div>
 	                        <!-- Post Content -->
 	                        <div class="post-content">
@@ -58,7 +66,7 @@
 	                                    </div>
 	                                    <!-- Post Date -->
 	                                    <div class="post-date">
-	                                        <a href="#">${vo.lvo.usetime }</a>
+	                                        <a href="#">-</a>
 	                                    </div>
 	                                </div>
 	                                <!-- Post Comment & Share Area -->
@@ -77,7 +85,7 @@
 	                                    </div>
 	                                </div>
 	                            </div>
-	                            <a href="#">
+	                            <a href="/jeju/location_detail_before?contentid=${vo.contentid }">
 	                                <h4 class="post-headline">${vo.title }</h4>
 	                            </a>
 	                        </div>
@@ -89,18 +97,27 @@
                     <div class="pagination-area d-sm-flex mt-15">
                         <nav aria-label="#">
                             <ul class="pagination">
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-                                </li>
+                            	<c:if test="${startPage>1 }">
+                            		<li class="page-item">
+                                    	<a class="page-link" href="/jeju/list?cno=${cno }&page=${startPage-1 }"> <i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</a>
+                               		</li>
+                            	</c:if>
+                            	
+                                <c:forEach var="i" begin="${startPage }" end="${endPage }">
+                                	<li class="page-item ${i==curpage?'active':''}">
+	                                    <a class="page-link" href="/jeju/list?cno=${cno }&page=${i }">${i }</a>
+	                                </li>
+                                </c:forEach>
+                                
+                                <c:if test="${endPage<totalpage }">
+                                	<li class="page-item">
+	                                    <a class="page-link" href="/jeju/list?cno=${cno }&page=${endPage+1 }">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+	                                </li>
+                                </c:if>
                             </ul>
                         </nav>
                         <div class="page-status">
-                            <p>Page 1 of 60 results</p>
+                            <p>${curpage } page / ${totalpage } pages </p>
                         </div>
                     </div>
                 </div>
