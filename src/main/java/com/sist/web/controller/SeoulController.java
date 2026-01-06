@@ -134,4 +134,12 @@ public class SeoulController {
 		model.addAttribute("main_jsp", jsp);
 		return "main/main";
 	}
+	
+	// 화면 이동 => 데이터처리 (RestController)
+	@GetMapping("/seoul/find")
+	public String seoul_find(Model model)
+	{
+		model.addAttribute("main_jsp", "../seoul/seoul_find.jsp");
+		return "main/main";
+	}
 }

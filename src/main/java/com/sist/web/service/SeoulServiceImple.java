@@ -30,4 +30,22 @@ public class SeoulServiceImple implements SeoulService {
 		sMapper.seoulHitIncrement(contentid);
 		return sMapper.seoulAttractionDetailData(contentid);
 	}
+
+	@Override
+	public List<SeoulVO> seoulFindData(Map map) {
+		// TODO Auto-generated method stub
+		return sMapper.seoulFindData(map);
+	}
+
+	@Override
+	public int seoulFindTotalPage(String address) {
+		// TODO Auto-generated method stub
+		return sMapper.seoulFindTotalPage(address);
+	}
+
+	@Override
+	public List<SeoulVO> seoulTop5Data() {
+		// TODO Auto-generated method stub
+		return sMapper.seoulTop5Data();
+	}
 }

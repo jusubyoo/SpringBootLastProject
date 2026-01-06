@@ -71,4 +71,12 @@ public class BusanController {
 		model.addAttribute("main_jsp", "../busan/list.jsp");
 		return "main/main";
 	}
+	
+	@GetMapping("/busan/find")
+	public String busan_find(Model model)
+	{
+		model.addAttribute("main_jsp", "../busan/busan_find.jsp");
+		return "main/main";
+	}
+	
 }
