@@ -107,6 +107,8 @@ public class SeoulController {
 		if(contenttype==12)
 		{
 			SeoulVO vo=sService.seoulAttractionDetailData(contentid);
+			String[] addrs=vo.getAddress().split(" ");
+			model.addAttribute("addr", addrs[1].trim());
 			model.addAttribute("vo", vo);
 			jsp="../seoul/attraction.jsp";
 		}
@@ -116,6 +118,10 @@ public class SeoulController {
 		}
 		else if(contenttype==15)
 		{
+			SeoulVO vo=sService.seoulFestivalDetailData(contentid);
+			String[] addrs=vo.getAddress().split(" ");
+			model.addAttribute("addr", addrs[1].trim());
+			model.addAttribute("vo", vo);
 			jsp="../seoul/festival.jsp";
 		}
 		else if(contenttype==32)
@@ -132,6 +138,7 @@ public class SeoulController {
 		}
 		model.addAttribute("name", name);
 		model.addAttribute("main_jsp", jsp);
+		
 		return "main/main";
 	}
 	

@@ -84,4 +84,6 @@
 		FROM seoultravel WHERE contenttype=39 ORDER BY hit DESC)
 		WHERE rownum&lt;=5
 	</select>
+	
+	
 </mapper>

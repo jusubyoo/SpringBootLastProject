@@ -48,4 +48,10 @@ public class SeoulServiceImple implements SeoulService {
 		// TODO Auto-generated method stub
 		return sMapper.seoulTop5Data();
 	}
+
+	@Override
+	public SeoulVO seoulFestivalDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		return sMapper.seoulFestivalDetailData(contentid);
+	}
 }
