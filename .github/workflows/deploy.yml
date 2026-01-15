@@ -57,8 +57,8 @@ jobs:
     - name: Deply on Server using DockerHub image
       run: |
         ssh ubuntu@43.201.67.113 << 'EOF'
-          docker stop spring-boot-app || true
-          docker rm spring-boot-app || true
-          docker pull ${{secrets.DOCKERHUB_USERNAME}}/spring-boot-app:latest
-          docker run -d --name spring-boot-app -p 8080:8080 ${{secrets.DOCKERHUB_USERNAME}}/spring-boot-app:latest 
-          EOF
+        docker stop spring-boot-app || true
+        docker rm spring-boot-app || true
+        docker pull ${{secrets.DOCKERHUB_USERNAME}}/spring-boot-app:latest
+        docker run -d --name spring-boot-app -p 8080:8080 ${{secrets.DOCKERHUB_USERNAME}}/spring-boot-app:latest 
+        EOF
