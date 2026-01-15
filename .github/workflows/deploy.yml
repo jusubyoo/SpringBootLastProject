@@ -28,7 +28,7 @@ jobs:
 
     # gradle 빌드
     - name: Build with Gradle
-      run: ./gradlew clean build -x
+      run: ./gradlew clean build -x test
     # war 파일 생성 = clean 전체 삭제 => 다시 build
 
     - name: Login in to DockerHub
