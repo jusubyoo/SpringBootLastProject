@@ -4,7 +4,7 @@ name: Deploy with Docker to Ubuntu Server
 on:
   push:
     branches:
-      - main  # main 브랜치에 푸시될 때 트리거 (Commit/Push) 20260116
+      - main  # main 브랜치에 푸시될 때 트리거 (Commit/Push) 20260116 1
 jobs:
   deploy:
     runs-on: ubuntu-latest # ubuntu 최종버전
