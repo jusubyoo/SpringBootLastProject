@@ -50,14 +50,14 @@ jobs:
 
     - name: Add known_hosts
       run: |
-        ssh-keyscan -t ed25519 43.201.67.113 >> ~/.ssh/known_hosts
+        ssh-keyscan -t ed25519 3.39.192.64 >> ~/.ssh/known_hosts
 
     # 실행
     # 정지 => docker stop image명
     # 삭제 => docker rm image명
     - name: Deply on Server using DockerHub image
       run: |
-        ssh ubuntu@43.201.67.113 << 'EOF'
+        ssh ubuntu@3.39.192.64 << 'EOF'
         sudo docker stop spring-boot-app || true
         sudo docker rm spring-boot-app || true
         sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/spring-boot-app:latest
