@@ -9,4 +9,8 @@ public interface CommonsReplyService {
 	public int commonsReplyTotalPage(int cno);
 	public void commonsReplyInsert(CommonsReplyVO vo);
 	public void commonsDelete(int no);	
+	public void commonsMsgUpdate(CommonsReplyVO vo);
+	//public void commonsAllDelete(int group_id);
+	//public void commonsMyDelete(int no);
+	public void commonsReplyReplyInsert(CommonsReplyVO vo);
 }
