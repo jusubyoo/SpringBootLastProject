@@ -55,7 +55,7 @@ public class CommonsReplyServiceImpl implements CommonsReplyService {
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public void commonsReplyReplyInsert(CommonsReplyVO vo) {
+	public String commonsReplyReplyInsert(CommonsReplyVO vo) {
 		// TODO Auto-generated method stub
 		int pno=vo.getNo(); // parent 번호
 		CommonsReplyVO pvo=cMapper.commonsReplyParentData(pno);
@@ -67,5 +67,7 @@ public class CommonsReplyServiceImpl implements CommonsReplyService {
 		
 		cMapper.commonsReplyReplyInsert(pvo);
 		cMapper.commonsDepthIncrement(pno);
+		
+		return pvo.getId();
 	}
 }

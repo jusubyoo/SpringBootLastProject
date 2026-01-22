@@ -5,7 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/toast.css">
+<script>
+const ID='${sessionScope.userid}'
+</script>
 </head>
 <body>
 	<table class="table">
@@ -29,22 +32,64 @@
 				<tr v-for="(vo,i) in store.reserve_list" :key="i">
 					<td class="text-center">{{vo.no}}</td>
 					<td>{{vo.svo.title}}</td>
-					<td class="text-center">
-						<img :src="vo.svo.image1" style="width: 30px;height: 30px">
-					</td>
+					<td class="text-center"><img :src="vo.svo.image1"
+						style="width: 30px; height: 30px"></td>
 					<td class="text-center">{{vo.rday}}</td>
 					<td class="text-center">{{vo.rtime}}</td>
 					<td class="text-center">{{vo.rinwon}}</td>
 					<td class="text-center">{{vo.dbday}}</td>
 					<td class="text-center">
-						<button class="btn btn-xs btn-info">
-						{{vo.isReserve===0?'예약대기':'예약완료'}}
-						</button>
-						<button class="btn btn-xs btn-warning" style="margin-left: 2px;">취소</button>
+						<button class="btn btn-xs btn-info" v-if="vo.isReserve===0">예약대기</button>
+						<button class="btn btn-xs btn-info" v-else @click="store.reserveDetail(vo.no)">예약완료</button>
+						<button class="btn btn-xs btn-warning" style="margin-left: 2px;"
+							@click="store.reserveRequest(vo.no)" v-if="vo.isCancel===0">취소요청</button>
+						<span class="btn btn-xs btn-default" style="margin-left: 2px;"
+						v-else>취소대기</span>
 					</td>
 				</tr>
 			</thead>
 		</table>
+		<div v-if="store.isShow">
+			<table class="table">
+				<tbody>
+					<tr>
+						<th colspan="8"><h3>예약 정보</h3></th>
+					</tr>
+					<tr>
+						<th class="text-center">예약번호</th>
+						<td class="text-center">{{store.reserve_detail.no}}</td>
+						<th class="text-center">예약일</th>
+						<td class="text-center">{{store.reserve_detail.rday}}</td>
+						<th class="text-center">예약시간</th>
+						<td class="text-center">{{store.reserve_detail.rtime}}</td>
+						<th class="text-center">예약인원</th>
+						<td class="text-center">{{store.reserve_detail.rinwon}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table">
+				<tbody> 
+					<tr>
+						<th><h3>맛집 정보</h3></th>
+					</tr>
+					<tr>
+						<td width="30%" class="text-center" rowspan="8">
+						<img :src="store.reserve_detail.svo.image1" style="width: 900px; height: 350px"></td>
+						<td colspan="2"><h3>{{store.reserve_detail.svo.title}}</h3></td>
+					</tr>
+					<tr>
+						<td width="15%" class="text-center">주소</td>
+						<td width="55%">{{store.reserve_detail.svo.address}}</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="text-right">
+							<button class="btn-sm btn-warning" @click="store.isShow=false">닫기</button> 
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<jsp:include page="../commons/toast.jsp"></jsp:include>
 	</div>
 	<script src="/vue/axios.js"></script>
 	<script src="/vue/reserve/mypageStore.js"></script>
@@ -57,6 +102,7 @@
 			const store=useMypageStore()
 			onMounted(()=>{
 				store.dataRecv()
+				store.connect(ID)
 			})
 			return {
 				store

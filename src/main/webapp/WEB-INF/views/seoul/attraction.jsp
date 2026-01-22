@@ -173,7 +173,7 @@ const CNO='${param.contentid}'
                                                         <a class="active a-link" v-if="store.sessionId===rvo.id">삭제</a>
                                                     </div>
                                                     
-                                                  	<div class="comment-form" style="margin-top: 20px;" v-if="store.upReplyNo===rvo.no">
+                                                  	<div class="comment-form" style="margin-top: 20px;" v-if="store.reReplyNo===rvo.no">
 														<form action="#" method="post">
 															<textarea v-model="store.updateMsg[rvo.no]" cols="50" rows="4" placeholder="Message" 
 															style="float: left; display: inline-block;"></textarea>
@@ -223,6 +223,7 @@ const CNO='${param.contentid}'
 		                        </div>
 		                    </div>
 		                </div>
+		                <jsp:include page="../commons/toast.jsp"></jsp:include>
             	</div>
 			  <script>
 			  const {onMounted,ref,createApp} = Vue
@@ -235,6 +236,7 @@ const CNO='${param.contentid}'
 					  onMounted(()=>{
 						  store.sessionId=SESSION_ID
 						  store.commonsListData(CNO)
+						  store.connect(SESSION_ID)
 					  })
 					  
 					  return {

@@ -15,7 +15,8 @@ const useCommonsReplyStore=defineStore('commons_reply',{
 		upReplyNo:null,
 		updateMsg:{},
 		reReplyNo:null,
-		replyMsg:{}
+		replyMsg:{},
+		message:''
 		// update 관련
 	}),
 	getters:{
@@ -29,6 +30,38 @@ const useCommonsReplyStore=defineStore('commons_reply',{
 		}
 	},
 	actions:{
+		connect(id) {
+			const sock=new SockJS('/ws')
+			this.stomp=Stomp.over(sock)
+			
+			// 구독 => 데이터를 받을 경우 어디에 출력할지 설정
+			// 어떤 URL인 경우인지
+			/*
+				this.stomp.connect({},()=>{},()=>{})
+								   -- ------ ------
+								   |     |      | errorCallback
+								headers connectionCallback
+			*/
+			this.stomp.connect({},()=>{
+				this.stomp.subscribe('/sub/notice/'+id,msg=>{
+					this.showToast(msg.body)
+				})
+			})
+		},
+		showToast(message){
+					  const toast = document.getElementById("reserveToast")
+					  const toastMsg = document.getElementById("toastMsg")
+
+					  toastMsg.innerText = message;
+					  toast.classList.add("show");
+
+					  // 3초 후 자동 닫힘
+					  
+					  setTimeout(() => {
+					     hideToast()
+					  }, 5000);
+
+				},
 		setPageData(data){
 			this.list=data.list
 			this.curpage=data.curpage
@@ -81,10 +114,11 @@ const useCommonsReplyStore=defineStore('commons_reply',{
 		toggleUpdate(no,msg){
 			this.upReplyNo=this.upReplyNo===no?null:no
 			this.updateMsg[no]=msg
+			this.rePeplyNo=null
 		},
 		// RestFul => select(get),delete(delete)
 		// 
-		async commonsUpdate(no) {
+		async replyUpdate(no) {
 			const res=await api.put('/commons/update_vue/',{
 				no:no,
 				cno:this.cno,
@@ -97,7 +131,9 @@ const useCommonsReplyStore=defineStore('commons_reply',{
 		// reply
 		toggleReply(no) {
 			this.reReplyNo=this.reReplyNo===no?null:no
-			//this.replyMsg[no]=msg
+			if(this.reReplyNo !== null){
+			        this.replyMsg[no] = ''
+			    }
 			this.upReplyNo=null
 		},
 		async replyReply(no) {
@@ -112,3 +148,7 @@ const useCommonsReplyStore=defineStore('commons_reply',{
 		}
 	}
 })
+function hideToast() {
+	const toast = document.getElementById("reserveToast")
+	toast.classList.remove("show")
+}
